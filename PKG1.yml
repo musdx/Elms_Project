@@ -188,8 +188,16 @@ conversations:
     - I am okay
     - I am sad
   - - why do you sad?
-    - I am not sure sometime i just feel hopeless
+    - I am not sure. Sometime, i just feel hopeless
+    - I want to meet my dad again
+    - My mom, i miss her
   - - i am good and you?
     - I am fine
     - I feel a bit sad today
-
+  - - How about you?
+    - I am fine
+    - I am a bit sad
+  - - why sad?
+    - I am not sure. Sometime, i just feel hopeless
+    - I want to meet my dad again
+    - My mom, i miss her
