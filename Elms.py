@@ -1,4 +1,5 @@
 import chatterbot.trainers
+from flask import Flask, render_template, request, jsonify
 from chatterbot import ChatBot
 from chatterbot import filters
 from chatterbot.trainers import ChatterBotCorpusTrainer
@@ -6,6 +7,8 @@ from chatterbot.comparisons import SpacySimilarity
 from chatterbot.response_selection import get_random_response
 from chatterbot.filters import get_recent_repeated_responses
 import spacy
+
+app = Flask(__name__)
 
 npl = spacy.load('en_core_web_sm')
 
@@ -80,12 +83,25 @@ trainer.train(
     "./PKG1.yml"
 )
 
-print("Elms: hi, i am Elms a simple chatbot")
+@app.route("/")
+def home():
+    return render_template("elms.html")
 
-while True:
-    user = input("User: ")
-    if user.lower() == "q":
-        print("k see u later")
-        break
-    rep = bot.get_response(user)
-    print("Elms:", rep)
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    user_input = request.json['user_input']
+    bot_response = bot.get_response(user_input).text
+    return jsonify({'bot_response': bot_response})
+
+#print("WELCOME TO ELMS THE SIMPLE CHATBOT")
+
+#while True:
+#    user = input("User: ")
+#    if user.lower() == "q":
+#        print("k see u later")
+#        break
+#    rep = bot.get_response(user)
+#    print("Elms:", rep)
+if __name__ == '__main__':
+    app.run(debug=True)

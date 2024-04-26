@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #282828; /* Dark background */
+            color: #ebdbb2; /* Light text */
+        }
+        .chat-container {
+            width: 80%;
+            max-width: 500px;
+            margin: 50px auto;
+            border: 1px solid #3c3836; /* Darker border */
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #3c3836; /* Darker background */
+        }
+        .chat-messages {
+            padding: 10px;
+            overflow-y: scroll;
+            height: 300px;
+            background-color: #282828; /* Dark background */
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #458588; /* Dark cyan */
+            color: #fbf1c7; /* Lighter text */
+            align-self: flex-end;
+        }
+        .bot-message {
+            background-color: #689d6a; /* Dark green */
+            color: #fbf1c7; /* Lighter text */
+            align-self: flex-start;
+        }
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #3c3836; /* Darker background */
+        }
+        .user-input {
+            flex: 1;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #282828; /* Dark background */
+            color: #ebdbb2; /* Light text */
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="input-container">
+            <input type="text" class="user-input" id="user-input" placeholder="Type your message...">
+        </div>
+    </div>
+    <script>
+        document.getElementById('user-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            var userInput = document.getElementById('user-input').value;
+            if (!userInput.trim()) {
+                return;
+            }
+            document.getElementById('user-input').value = '';
+            var chatMessages = document.getElementById('chat-messages');
+            var userMessageHtml = '<div class="message user-message">User: ' + userInput + '</div>';
+            chatMessages.innerHTML += userMessageHtml;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_input: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var botMessageHtml = '<div class="message bot-message">Elms: ' + data.bot_response + '</div>';
+                chatMessages.innerHTML += botMessageHtml;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>
+
