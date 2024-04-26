@@ -2,9 +2,9 @@ import chatterbot.trainers
 from chatterbot import ChatBot
 from chatterbot import filters
 from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.comparisons import JaccardSimilarity
+from chatterbot.comparisons import SpacySimilarity
 from chatterbot.response_selection import get_random_response
-
+from chatterbot.filters import get_recent_repeated_responses
 import spacy
 
 npl = spacy.load('en_core_web_sm')
@@ -15,11 +15,11 @@ bot = ChatBot(
         'chatterbot.preprocessors.clean_whitespace'
     ],
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
-    filters=[filters.get_recent_repeated_responses],
+    filters='filters.get_recent_repeated_responses',
      logic_adapters=[
         {
             'import_path': 'chatterbot.logic.BestMatch',
-            'statement_comparison_function': JaccardSimilarity,
+            'statement_comparison_function': SpacySimilarity,
             'response_selection_method': get_random_response,
             'default_response': [
                 'I am sorry, but I am dumb',
