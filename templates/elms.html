@@ -23,13 +23,16 @@
             font: 14px "Lucida Console", Monaco, monospace;
             margin: 0;
             padding: 0;
+            align-items: center;
             background-color: #282828;
             color: #ebdbb2;
             overflow: hidden
         }
         .chat-container {
-            width: 95%;
-            max-width: 500px;
+            width: 85%;
+            height: 85%;
+            max-width: 800px;
+            max-height: 900px;
             margin: 100px auto;
             border: 1px solid #3c3836;
             border-radius: 5px;
@@ -76,9 +79,17 @@
             background-color: #282828;
             color: #ebdbb2;
         }
+        .h1c {
+            text-align: center;
+        }
+        h1 {
+            color: #928374;
+            font-size: 50px;
+        }
     </style>
 </head>
 <body>
+<div class="h1c"><h1>Elms A Simple ChatBot</h1></div>
     <div class="chat-container">
         <div class="chat-messages" id="chat-messages"></div>
         <div class="input-container">
