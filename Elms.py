@@ -5,6 +5,7 @@ from chatterbot import filters
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from chatterbot.comparisons import SpacySimilarity
 from chatterbot.response_selection import get_random_response
+from chatterbot.trainers import UbuntuCorpusTrainer
 from chatterbot.filters import get_recent_repeated_responses
 import spacy
 
@@ -73,16 +74,17 @@ bot = ChatBot(
             'import_path': 'chatterbot.logic.MathematicalEvaluation',
         },
     ],
-    trainer='chatterbot.trainers.ListTrainer'
+    database='db.sqlite3'
 )
-
-trainer = ChatterBotCorpusTrainer(bot)
-
-trainer.train(
-    'chatterbot.corpus.english',
-    "./PKG1.yml"
-)
-
+#Training stuff
+#trainer = ChatterBotCorpusTrainer(bot)
+#trainer.train(
+#    'chatterbot.corpus.english',
+#    "./PKG1.yml"
+#)
+#Stupid corpus
+#trainer = UbuntuCorpusTrainer(bot)
+#trainer.train()
 @app.route("/")
 def home():
     return render_template("elms.html",)
@@ -104,4 +106,4 @@ def chat():
 #    rep = bot.get_response(user)
 #    print("Elms:", rep)
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
