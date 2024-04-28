@@ -79,9 +79,7 @@ bot = ChatBot(
 #Training stuff
 #trainer = ChatterBotCorpusTrainer(bot)
 #trainer.train(
-#    'chatterbot.corpus.english',
-#    "./PKG1.yml"
-#)
+#    "./PKG1.yml")
 #Stupid corpus
 #trainer = UbuntuCorpusTrainer(bot)
 #trainer.train()
