@@ -1,4 +1,4 @@
 ## What is this?
 A chatbot made with chatterbot
 ## Website
-**Comimg Soon**
+http://elmsbot.duckdns.org/ not https
