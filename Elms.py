@@ -22,6 +22,9 @@ bot = ChatBot(
     filters='filters.get_recent_repeated_responses',
      logic_adapters=[
         {
+             'import_path': 'plus_adapter.HowAreYouQ'
+        },
+        {
             'import_path': 'chatterbot.logic.BestMatch',
             'statement_comparison_function': SpacySimilarity,
             'response_selection_method': get_random_response,
@@ -68,7 +71,7 @@ bot = ChatBot(
                 "I'm in the middle of a mental magic trick, making that question disappear. Ta-da! What else shall we talk about?",
                 "I'm like a detective without a magnifying glass on that mystery. Can we solve a different case together?",
                                 ],
-            'maximum_similarity_threshold': 0.90,
+            'maximum_similarity_threshold': 0.95,
         },
         {
             'import_path': 'chatterbot.logic.MathematicalEvaluation',
@@ -94,14 +97,6 @@ def chat():
     bot_response = bot.get_response(user_input).text
     return jsonify({'bot_response': bot_response})
 
-#print("WELCOME TO ELMS THE SIMPLE CHATBOT")
 
-#while True:
-#    user = input("User: ")
-#    if user.lower() == "q":
-#        print("k see u later")
-#        break
-#    rep = bot.get_response(user)
-#    print("Elms:", rep)
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
